@@ -1,0 +1,28 @@
+﻿<ResourceDictionary 
+      xmlns ="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="about">O programu</system:String>
+    <system:String x:Key="login">Prijavi se</system:String>
+    <system:String x:Key="forgetPass">Da li ste zaboravili lozinku?</system:String>
+    <system:String x:Key="usr">Korisnicko ime</system:String>
+    <system:String x:Key="pass">Lozinka</system:String>
+    <system:String x:Key="stock">Skladišta</system:String>
+    <system:String x:Key="workers">Radnici</system:String>
+    <system:String x:Key="suppliers">Dobavljači</system:String>
+    <system:String x:Key="customers">Kupci</system:String>
+    <system:String x:Key="goods">Roba</system:String>
+    <system:String x:Key="logout">Odjava</system:String>
+    <system:String x:Key="choose">Izaberite skladište za prikaz opcija</system:String>
+    <system:String x:Key="search">Pretraži skladište...</system:String>
+    <system:String x:Key="addGoods">Dodaj robu</system:String>
+    <system:String x:Key="height">Visina (m)</system:String>
+    <system:String x:Key="width">Širina (m)</system:String>
+    <system:String x:Key="length">Dužina (m)</system:String>
+    <system:String x:Key="supplier">Dobavljač</system:String>
+    <system:String x:Key="name">Naziv</system:String>
+    <system:String x:Key="add">Dodaj</system:String>
+    <system:String x:Key="delete">Briši</system:String>
+    <system:String x:Key="deleteMsg">Brisanje robe</system:String>
+</ResourceDictionary> 

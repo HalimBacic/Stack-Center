@@ -1,0 +1,130 @@
+﻿<Window x:Class="Stack_Center.StockAdmin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="StockAdmin" Height="822" Width="1367">
+
+    <Window.Resources>
+        <Thickness x:Key="tbMargin">0,40,0,0</Thickness>
+
+        <Style x:Key="{x:Type Label}"
+       TargetType="Label">
+            <Setter Property="HorizontalContentAlignment"
+          Value="Left" />
+            <Setter Property="VerticalContentAlignment"
+          Value="Top" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Border>
+                            <ContentPresenter HorizontalAlignment="Center"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            RecognizesAccessKey="True"
+                            TextBlock.Foreground="#EDDDD4" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate x:Key = "ButtonTemplate" TargetType = "Button">
+
+            <Grid Margin="0,0,0,0" Width="165">
+                <Border CornerRadius="15">
+                    <Border.BorderBrush>
+                        <SolidColorBrush Color="#197278"></SolidColorBrush>
+                    </Border.BorderBrush>
+                    <Border.BorderThickness>2</Border.BorderThickness>
+                    <Border.Background>#C44536</Border.Background>
+                </Border>
+                <ContentPresenter Content = "{TemplateBinding Content}"
+               HorizontalAlignment = "Center" VerticalAlignment = "Center"
+               TextBlock.FontFamily="Tahoma"
+               TextBlock.Foreground="#EDDDD4"
+               TextBlock.FontSize="22" />
+            </Grid>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand"></Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush Opacity="1">
+                <GradientStop Color="#772E25" Offset="0.2"></GradientStop>
+                <GradientStop Color="#C44536" Offset="0.7"></GradientStop>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <ComboBox x:Name="stockBox" Text="{DynamicResource stock}"
+                  HorizontalAlignment="Left" Margin="300,59,0,0"
+                  VerticalAlignment="Top" Width="260" Height="40"
+                  ItemsSource="{Binding }" />
+        <StackPanel Margin="0,0,1097,10">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="{StaticResource tbMargin}"></Setter>
+                </Style>
+            </StackPanel.Resources>
+            <Button Template="{StaticResource ButtonTemplate}" x:Name="wrksBtn" Content="{DynamicResource workers}" Height="70" Width="175" />
+            <Button Template="{StaticResource ButtonTemplate}" x:Name="splrBtn" Content="{DynamicResource supplier}" Height="70" Width="175" />
+            <Button Template="{StaticResource ButtonTemplate}" x:Name="byeBtn" Content="{DynamicResource customers}" Height="70" Width="175" />
+            <Button Template="{StaticResource ButtonTemplate}" x:Name="gdsBtn" Content="{DynamicResource goods}" Height="70" Width="175" />
+            <Button Margin="0,250,0,0" Template="{StaticResource ButtonTemplate}" x:Name="lgtBtn" Content="{DynamicResource logout}" Height="70" Width="175" />
+        </StackPanel>
+        <Grid Margin="270,144,10,10">
+
+            <Grid x:Name="stockGrid">
+                <StackPanel Margin="0,10,732,10">
+                    <StackPanel.Background>
+                        <LinearGradientBrush StartPoint="0.3,0.5" EndPoint="0.7,1">
+                            <GradientStop Color="#C44536" Offset="0"></GradientStop>
+                            <GradientStop Color="#772E25" Offset="1"></GradientStop>
+                        </LinearGradientBrush>
+                    </StackPanel.Background>
+                    <Label Visibility="Visible" Margin="{StaticResource tbMargin}" x:Name="label" Content="{StaticResource choose}" />
+                    <StackPanel Visibility="Collapsed" x:Name="activePanel" Margin="10 10 10 10">
+                        <Grid Height="100">
+                            <TextBox x:Name="searchBox" HorizontalAlignment="Left" Margin="40,0,0,0" Text="{StaticResource search}" TextWrapping="Wrap" VerticalAlignment="Center" Width="175" Height="23" />
+                            <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="242,0,0,0" VerticalAlignment="Center" />
+                        </Grid>
+
+                        <Grid Height="305" Width="310">
+                            <Border Margin="0,0,0,45">
+                                <Border.BorderThickness>2</Border.BorderThickness>
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#283D3B"></SolidColorBrush>
+                                </Border.BorderBrush>
+                            </Border>
+                            <Label Content="{StaticResource addGoods}" Margin="0,0,0,150"/>
+                            <TextBox Margin="10,20,212,260" Text="{StaticResource height}" />
+                            <TextBox Margin="10,70,160,210" Text="{StaticResource name}" />
+                            <TextBox Margin="111,20,111,260" Text="{StaticResource width}" />
+                            <TextBox Margin="212,20,10,260" Text="{StaticResource length}" />
+                            <TextBox Margin="160,70,10,210" Text="{StaticResource supplier}" />
+                            <StackPanel Orientation="Horizontal" Margin="0,110,0,135">
+                                <GridSplitter Width="62" Background="Transparent" />
+                                <Ellipse Fill="#197278" Stroke="Black" Width="52" Height="48"/>
+                                <GridSplitter Width="70" Background="Transparent" />
+                                <Rectangle Fill="#197278" Height="45" Stroke="Black" Width="86"/>
+                                <GridSplitter Width="52" Background="Transparent" />
+                            </StackPanel>
+                            <Button Template="{StaticResource ButtonTemplate}" x:Name="addBtn" Content="{StaticResource add}" HorizontalAlignment="Center" Margin="0,192,0,0" VerticalAlignment="Top" Height="38" Width="186"/>
+                            <Grid Height="125" Width="305">
+                                <Label Content="{StaticResource deleteMsg}"/>
+                                <TextBox TextAlignment="Center" x:Name="deleteBox" HorizontalAlignment="Left" Margin="10,0,0,0" Text="{StaticResource id}" TextWrapping="Wrap" VerticalAlignment="Center" Width="100" Height="40"/>
+                                <Button Margin="125,32,5,31" Content="{StaticResource delete}" Template="{StaticResource ButtonTemplate}" />
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+                <Canvas x:Name="stateCanvas" Margin="360,10,10,10" Background="#EDDDD4" />
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
