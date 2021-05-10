@@ -6,7 +6,7 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="about">O programu</system:String>
     <system:String x:Key="login">Prijavi se</system:String>
     <system:String x:Key="forgetPass">Da li ste zaboravili lozinku?</system:String>
-    <system:String x:Key="usr">Korisnicko ime</system:String>
+    <system:String x:Key="usr">Korisničko ime</system:String>
     <system:String x:Key="pass">Lozinka</system:String>
     <system:String x:Key="stock">Skladišta</system:String>
     <system:String x:Key="workers">Radnici</system:String>
@@ -25,4 +25,5 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="add">Dodaj</system:String>
     <system:String x:Key="delete">Briši</system:String>
     <system:String x:Key="deleteMsg">Brisanje robe</system:String>
+    <system:String x:Key="selectStock">Izaberite skladište ovdje</system:String>
 </ResourceDictionary> 

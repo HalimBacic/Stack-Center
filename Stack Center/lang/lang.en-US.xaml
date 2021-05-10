@@ -26,4 +26,5 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="id">ID</system:String>
     <system:String x:Key="delete">Delete</system:String>
     <system:String x:Key="deleteMsg">Delete Merchandise</system:String>
+    <system:String x:Key="selectStock">Select stock here</system:String>
 </ResourceDictionary> 

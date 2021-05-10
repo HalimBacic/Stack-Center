@@ -61,7 +61,7 @@
                 <GradientStop Color="#C44536" Offset="0.7"></GradientStop>
             </LinearGradientBrush>
         </Grid.Background>
-        <ComboBox x:Name="stockBox" Text="{DynamicResource stock}"
+        <ComboBox SelectionChanged="ChangeSelected"  x:Name="stockBox" Text="{DynamicResource stock}"
                   HorizontalAlignment="Left" Margin="300,59,0,0"
                   VerticalAlignment="Top" Width="260" Height="40"
                   ItemsSource="{Binding }" />
@@ -75,7 +75,7 @@
             <Button Template="{StaticResource ButtonTemplate}" x:Name="splrBtn" Content="{DynamicResource supplier}" Height="70" Width="175" />
             <Button Template="{StaticResource ButtonTemplate}" x:Name="byeBtn" Content="{DynamicResource customers}" Height="70" Width="175" />
             <Button Template="{StaticResource ButtonTemplate}" x:Name="gdsBtn" Content="{DynamicResource goods}" Height="70" Width="175" />
-            <Button Margin="0,250,0,0" Template="{StaticResource ButtonTemplate}" x:Name="lgtBtn" Content="{DynamicResource logout}" Height="70" Width="175" />
+            <Button Click="lgtBtn_Click" Margin="0,250,0,0" Template="{StaticResource ButtonTemplate}" x:Name="lgtBtn" Content="{DynamicResource logout}" Height="70" Width="175" />
         </StackPanel>
         <Grid Margin="270,144,10,10">
 
@@ -87,15 +87,15 @@
                             <GradientStop Color="#772E25" Offset="1"></GradientStop>
                         </LinearGradientBrush>
                     </StackPanel.Background>
-                    <Label Visibility="Visible" Margin="{StaticResource tbMargin}" x:Name="label" Content="{StaticResource choose}" />
-                    <StackPanel Visibility="Collapsed" x:Name="activePanel" Margin="10 10 10 10">
+                    <Label Visibility="Visible" Margin="{StaticResource tbMargin}" x:Name="slctdLabel" Content="{StaticResource choose}" />
+                    <StackPanel Visibility="Collapsed" x:Name="activePanel" Margin="10 10 10 10" Height="524">
                         <Grid Height="100">
                             <TextBox x:Name="searchBox" HorizontalAlignment="Left" Margin="40,0,0,0" Text="{StaticResource search}" TextWrapping="Wrap" VerticalAlignment="Center" Width="175" Height="23" />
                             <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="242,0,0,0" VerticalAlignment="Center" />
                         </Grid>
 
                         <Grid Height="305" Width="310">
-                            <Border Margin="0,0,0,45">
+                            <Border Margin="0,-21,0,66">
                                 <Border.BorderThickness>2</Border.BorderThickness>
                                 <Border.BorderBrush>
                                     <SolidColorBrush Color="#283D3B"></SolidColorBrush>
@@ -115,7 +115,7 @@
                                 <GridSplitter Width="52" Background="Transparent" />
                             </StackPanel>
                             <Button Template="{StaticResource ButtonTemplate}" x:Name="addBtn" Content="{StaticResource add}" HorizontalAlignment="Center" Margin="0,192,0,0" VerticalAlignment="Top" Height="38" Width="186"/>
-                            <Grid Height="125" Width="305">
+                            <Grid Height="125" Width="305" Margin="5,279,0,-99">
                                 <Label Content="{StaticResource deleteMsg}"/>
                                 <TextBox TextAlignment="Center" x:Name="deleteBox" HorizontalAlignment="Left" Margin="10,0,0,0" Text="{StaticResource id}" TextWrapping="Wrap" VerticalAlignment="Center" Width="100" Height="40"/>
                                 <Button Margin="125,32,5,31" Content="{StaticResource delete}" Template="{StaticResource ButtonTemplate}" />
@@ -126,5 +126,6 @@
                 <Canvas x:Name="stateCanvas" Margin="360,10,10,10" Background="#EDDDD4" />
             </Grid>
         </Grid>
+        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="300,38,0,0" VerticalAlignment="Top" Width="175"/>
     </Grid>
 </Window>

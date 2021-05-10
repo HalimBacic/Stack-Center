@@ -31,8 +31,25 @@ namespace Stack_Center
         {
             StockDAO stocks = new StockDAO();
             List<Stock> lista = stocks.getAll();
-            foreach (Stock st in lista)
+
+            
+
+            foreach (Stock st in lista) { 
                 stockBox.Items.Add(st.Adress);
+              }
+        }
+
+        public void ChangeSelected(object sender, SelectionChangedEventArgs e)
+        {
+            slctdLabel.Visibility = Visibility.Collapsed;
+            activePanel.Visibility = Visibility.Visible;
+        }
+
+        private void lgtBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = new MainWindow();
+            mw.Show();
+            Close();
         }
     }
 }
