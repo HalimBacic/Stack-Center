@@ -30,7 +30,7 @@ namespace Stack_Center.dao
             MySqlDataReader data = Items.Connection.ReadData("select * from `skladiste`;");
             while (data.Read())
             {
-                lista.Add(new Stock(data.GetString(1), data.GetInt32(2), data.GetInt32(3), data.GetInt32(4), data.GetString(5)));
+                lista.Add(new Stock(data.GetString(0), data.GetInt32(1), data.GetInt32(2), data.GetInt32(3), data.GetString(4)));
             }
             Items.Connection.Disconnect();
             return lista;
@@ -42,6 +42,11 @@ namespace Stack_Center.dao
         }
 
         public void removeElement(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void removeElement(string ime)
         {
             throw new NotImplementedException();
         }

@@ -23,7 +23,6 @@ namespace Stack_Center.dao
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "dodajDobavljaca";
             cmd.Parameters.Add("ime", MySqlDbType.String).Value = obj.Ime;
-            cmd.Parameters.Add("prezime", MySqlDbType.String).Value = obj.Prezime;
             cmd.Parameters.Add("telefon", MySqlDbType.String).Value = obj.Telefon;
             cmd.Parameters.Add("adresa", MySqlDbType.String).Value = obj.Adresa;
             Items.Connection.CallProcedure(cmd);
@@ -37,7 +36,8 @@ namespace Stack_Center.dao
             MySqlDataReader data = Items.Connection.ReadData("select * from `dobavljac`;");
             while (data.Read())
             {
-                lista.Add(new Dobavljac(data.GetString("ime"), data.GetString("prezime"), data.GetString("telefon"), data.GetString("adresa"), data.GetInt32("id")));
+                Dobavljac dob = new Dobavljac(data.GetString("ime"), data.GetString("telefon"), data.GetString("adresa"));
+                lista.Add(dob);
             }
             Items.Connection.Disconnect();
             return lista;
@@ -54,7 +54,7 @@ namespace Stack_Center.dao
             MySqlDataReader reader = Items.Connection.CallProcedureReader(cmd);
             while (reader.Read())
             {
-                dobavljac = new Dobavljac(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
+                dobavljac = new Dobavljac(reader.GetString(1), reader.GetString(2), reader.GetString(3));
             }
             return dobavljac;
         }
@@ -67,6 +67,11 @@ namespace Stack_Center.dao
             cmd.CommandText = "obrisiDobavljaca";
             cmd.Parameters.Add("id", MySqlDbType.Int32).Value = id;
             Items.Connection.CallProcedure(cmd);
+        }
+
+        public void removeElement(string ime)
+        {
+            throw new System.NotImplementedException();
         }
 
         public void updateElement(Dobavljac obj, int id)

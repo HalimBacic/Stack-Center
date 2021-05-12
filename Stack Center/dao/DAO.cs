@@ -10,6 +10,8 @@ namespace Stack_Center.dao
 
         public void removeElement(int id);
 
+        public void removeElement(string ime);
+
         public void updateElement(T obj, int id);
 
         public List<T> getAll();

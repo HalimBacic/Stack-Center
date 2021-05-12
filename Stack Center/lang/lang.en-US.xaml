@@ -9,6 +9,7 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="usr">Username</system:String>
     <system:String x:Key="pass">Password</system:String>
     <system:String x:Key="stock">Stocks</system:String>
+    <system:String x:Key="wstock">Working stock</system:String>
     <system:String x:Key="workers">Employees</system:String>
     <system:String x:Key="suppliers">Suppliers</system:String>
     <system:String x:Key="customers">Buyers</system:String>
@@ -27,4 +28,13 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="delete">Delete</system:String>
     <system:String x:Key="deleteMsg">Delete Merchandise</system:String>
     <system:String x:Key="selectStock">Select stock here</system:String>
+    <system:String x:Key="quantity">Quantity</system:String>
+    <system:String x:Key="price">Price</system:String>
+    <system:String x:Key="weigth">Weight</system:String>
+    <system:String x:Key="nameWorker">Name</system:String>
+    <system:String x:Key="surname">Surame</system:String>
+    <system:String x:Key="uid">UID</system:String>
+    <system:String x:Key="phone">Phone</system:String>
+    <system:String x:Key="payment">Payment</system:String>
+    <system:String x:Key="addWorker">Add worker</system:String>
 </ResourceDictionary> 

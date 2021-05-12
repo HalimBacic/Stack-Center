@@ -9,6 +9,7 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="usr">Korisničko ime</system:String>
     <system:String x:Key="pass">Lozinka</system:String>
     <system:String x:Key="stock">Skladišta</system:String>
+    <system:String x:Key="wstock">Radna jedinica</system:String>
     <system:String x:Key="workers">Radnici</system:String>
     <system:String x:Key="suppliers">Dobavljači</system:String>
     <system:String x:Key="customers">Kupci</system:String>
@@ -26,4 +27,13 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="delete">Briši</system:String>
     <system:String x:Key="deleteMsg">Brisanje robe</system:String>
     <system:String x:Key="selectStock">Izaberite skladište ovdje</system:String>
+    <system:String x:Key="quantity">Količina</system:String>
+    <system:String x:Key="price">Cijena</system:String>
+    <system:String x:Key="weigth">Težina</system:String>
+    <system:String x:Key="nameWorker">Ime</system:String>
+    <system:String x:Key="surname">Prezime</system:String>
+    <system:String x:Key="uid">JMBG</system:String>
+    <system:String x:Key="phone">Telefon</system:String>
+    <system:String x:Key="payment">Plata</system:String>
+    <system:String x:Key="addWorker">Dodaj radnika</system:String>
 </ResourceDictionary> 

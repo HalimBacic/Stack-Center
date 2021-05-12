@@ -7,15 +7,18 @@
         private string prezime;
         private string jmbg;
         private double plata;
-        private int skladiste_id;
+        private string skladiste_adresa;
+        private string telefon;
 
-        public Radnik(string login, string ime, string prezime, string jmbg, double plata)
+        public Radnik(string login, string ime, string prezime, string jmbg, double plata, string skladiste_adresa, string telefon)
         {
-            this.login = login;
-            this.ime = ime;
-            this.prezime = prezime;
-            this.jmbg = jmbg;
-            this.plata = plata;
+            this.Login = login;
+            this.Ime = ime;
+            this.Prezime = prezime;
+            this.Jmbg = jmbg;
+            this.Plata = plata;
+            this.Skladiste_adresa = skladiste_adresa;
+            this.Telefon = telefon;
         }
 
         public string Login { get => login; set => login = value; }
@@ -23,6 +26,7 @@
         public string Prezime { get => prezime; set => prezime = value; }
         public string Jmbg { get => jmbg; set => jmbg = value; }
         public double Plata { get => plata; set => plata = value; }
-        public int Skladiste_id { get => skladiste_id; set => skladiste_id = value; }
+        public string Skladiste_adresa { get => skladiste_adresa; set => skladiste_adresa = value; }
+        public string Telefon { get => telefon; set => telefon = value; }
     }
 }

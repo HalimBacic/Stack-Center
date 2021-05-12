@@ -16,10 +16,8 @@ namespace Stack_Center.Items
 
         public static void Connect()
         {
-            Trace.WriteLine("Starting...");
             conn = new MySqlConnection(connectionString);
             conn.Open();
-            Trace.WriteLine("Started...");
         }
     
 
@@ -34,7 +32,6 @@ namespace Stack_Center.Items
         {
             MySqlDataAdapter adap = new MySqlDataAdapter();
 
-            //    SqlCommand sqlcmd = new SqlCommand(sql,conn);
             adap.InsertCommand = new MySqlCommand(sql, conn);
             adap.InsertCommand.ExecuteNonQuery();
         }
