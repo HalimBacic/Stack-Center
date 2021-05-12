@@ -37,4 +37,9 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="phone">Phone</system:String>
     <system:String x:Key="payment">Payment</system:String>
     <system:String x:Key="addWorker">Add worker</system:String>
+    <system:String x:Key="addSupp">Add supplier</system:String>
+    <system:String x:Key="suppName">Supplier name</system:String>
+    <system:String x:Key="suppPhone">Supplier phone</system:String>
+    <system:String x:Key="suppAddr">Supplier adress</system:String>
+    <system:String x:Key="delSupp">Delete supplier</system:String>
 </ResourceDictionary> 

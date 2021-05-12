@@ -36,4 +36,9 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="phone">Telefon</system:String>
     <system:String x:Key="payment">Plata</system:String>
     <system:String x:Key="addWorker">Dodaj radnika</system:String>
+    <system:String x:Key="addSupp">Dodaj dobavljača</system:String>
+    <system:String x:Key="suppName">Ime dobavljača</system:String>
+    <system:String x:Key="suppPhone">Telefon dobavljača</system:String>
+    <system:String x:Key="suppAddr">Adresa dobavljača</system:String>
+    <system:String x:Key="delSupp">Obriši dobavljača</system:String>
 </ResourceDictionary> 

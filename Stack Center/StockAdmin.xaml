@@ -11,6 +11,29 @@
     <Window.Resources>
         <Thickness x:Key="tbMargin">0,40,0,0</Thickness>
 
+        <Style x:Key="GridBorder" TargetType="Border">
+            <Setter Property="CornerRadius" Value="10"></Setter>
+            <Setter Property="BorderThickness" Value="2"></Setter>
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <SolidColorBrush Color="#283D3B"></SolidColorBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Margin" Value="0,-21,0,10"></Setter>
+        </Style>
+
+        <Style x:Key="LeftStack" TargetType="StackPanel">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.3,0.5" EndPoint="0.7,1">
+                        <GradientStop Color="#C44536" Offset="0"></GradientStop>
+                        <GradientStop Color="#772E25" Offset="1"></GradientStop>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
         <Style x:Key="{x:Type Label}"
        TargetType="Label">
             <Setter Property="HorizontalContentAlignment"
@@ -93,17 +116,13 @@
             <Button x:Name="addStockBtn" Content="Add" HorizontalAlignment="Left" Margin="311,25,0,0" VerticalAlignment="Top" />
             <Button x:Name="delStockBtn" Content="Rem" HorizontalAlignment="Left" Margin="345,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.131,0.786" />
         </Grid>
-        <Grid Margin="270,94,10,10"  x:Name="stockGrid" Visibility="Visible">
+
+        <Grid Margin="270,94,10,10"  x:Name="stockGrid" Visibility="Collapsed">
             <Grid>
 
-                <Grid HorizontalAlignment="Left" Width="382" Height="724" VerticalAlignment="Center">
-                    <StackPanel Margin="10,0,0,10" HorizontalAlignment="Left" Width="353">
-                        <StackPanel.Background>
-                            <LinearGradientBrush StartPoint="0.3,0.5" EndPoint="0.7,1">
-                                <GradientStop Color="#C44536" Offset="0"></GradientStop>
-                                <GradientStop Color="#772E25" Offset="1"></GradientStop>
-                            </LinearGradientBrush>
-                        </StackPanel.Background>
+                <Grid HorizontalAlignment="Left" Width="360" Height="724" VerticalAlignment="Center">
+                    <Border Style="{StaticResource GridBorder}" Margin="10,0,0,10"></Border>
+                    <StackPanel Style="{StaticResource LeftStack}" Margin="10,0,0,10" HorizontalAlignment="Left" Width="353">
                         <Label Visibility="Collapsed" Margin="{StaticResource tbMargin}" x:Name="slctdLabel" Content="{StaticResource choose}" />
                         <StackPanel Visibility="Visible" x:Name="activePanel" Margin="10 10 10 10" Height="524">
                             <Grid Height="95" Width="372">
@@ -112,12 +131,7 @@
                             </Grid>
 
                             <Grid Height="305" Width="310">
-                                <Border Margin="0,-21,0,10">
-                                    <Border.BorderThickness>2</Border.BorderThickness>
-                                    <Border.BorderBrush>
-                                        <SolidColorBrush Color="#283D3B"></SolidColorBrush>
-                                    </Border.BorderBrush>
-                                </Border>
+                                <Border Style="{StaticResource GridBorder}"></Border>
                                 <Label Content="{StaticResource addGoods}" Margin="0,0,0,285" />
                                 <TextBox x:Name="heightText" Margin="10,20,212,260" Text="{StaticResource height}" />
                                 <TextBox x:Name="nametext" Margin="10,100,160,180" Text="{StaticResource about}" />
@@ -143,7 +157,8 @@
                                     <GridSplitter Width="52" Background="Transparent" />
                                 </StackPanel>
                                 <Button Click="addBtn_Click" Template="{StaticResource ButtonTemplate}" x:Name="addBtn" Content="{StaticResource add}" HorizontalAlignment="Center" Margin="0,232,0,0" VerticalAlignment="Top" Height="38" Width="186" />
-                                <Grid Height="125" Width="305" Margin="2,315,2,-135">
+                                <Grid Height="125" Width="305" Margin="2,336,2,-156">
+                                    <Border Style="{StaticResource GridBorder}"></Border>
                                     <Label Content="{StaticResource deleteMsg}" />
                                     <TextBox  TextAlignment="Center" x:Name="deleteBox" HorizontalAlignment="Left" Margin="10,0,0,0" Text="{StaticResource id}" TextWrapping="Wrap" VerticalAlignment="Center" Width="100" Height="40" />
                                     <Button Click="delBtn_Click" x:Name="delBtn" Margin="125,32,5,31" Content="{StaticResource delete}" Template="{StaticResource ButtonTemplate}" />
@@ -162,13 +177,11 @@
         </Grid>
 
         <Grid Visibility="Collapsed" x:Name="workersGrid" Margin="250,144,0,10" HorizontalAlignment="Left" Width="1160">
-            <StackPanel Margin="0,35,790,10">
-                <Border Height="394" CornerRadius="10">
-                    <Border.BorderBrush>
-                        <SolidColorBrush>#283D3B</SolidColorBrush>
-                    </Border.BorderBrush>
-                    <Border.BorderThickness>3</Border.BorderThickness>
-                    <StackPanel Margin="10,10,10,10">
+            <StackPanel  Style="{StaticResource LeftStack}" Margin="0,35,790,10">
+                <Grid>
+                    <Border Style="{StaticResource GridBorder}" Margin="10,10,10,10">
+                    </Border>
+                    <StackPanel Margin="10,10,10,10" Height="385">
                         <StackPanel Height="100" Orientation="Horizontal">
                             <TextBox Margin="10 0 0 0" x:Name="textBox" Text="{StaticResource search}" TextWrapping="Wrap" Width="192" Height="34" />
                             <Button Margin="10 0 0 0" x:Name="button1" Content="Button" Height="34" Width="45" />
@@ -181,31 +194,23 @@
                         <TextBox Margin="0 10 0 0" Text="{StaticResource usr}" x:Name="loginBox" TextWrapping="Wrap" Width="120" />
                         <Button Click="addWorker_Click" x:Name="addWorker" Margin="0 30 0 0" Content="{StaticResource addWorker}" Template="{StaticResource ButtonTemplate}" Height="44" Width="171" />
                     </StackPanel>
-                </Border>
-                <Border Height="74" CornerRadius="15">
-                    <Border.BorderBrush>
-                        <SolidColorBrush>#283D3B</SolidColorBrush>
-                    </Border.BorderBrush>
-                    <Border.BorderThickness>3</Border.BorderThickness>
-                    <StackPanel Orientation="Horizontal" Width="280" Margin="0,7,0,0">
+                </Grid>
+                <Grid Height="215">
+                    <Border Style="{StaticResource GridBorder}" Margin="10,10,10,10">
+                    </Border>
+                    <StackPanel Orientation="Horizontal" Width="280" Margin="45,30,45,132">
                         <TextBox Height="34" Width="182" />
                         <Button Margin="20 0 0 0" Content="Delete" Height="33" Width="46" />
                     </StackPanel>
-
-                </Border>
-                <Border Height="113">
-                    <StackPanel Margin="0,10,0,-19">
+                    <StackPanel Margin="-10,88,10,47">
                         <TextBox Margin="0 10 0 0" x:Name="phhUpdBox" Text="Update Phone" TextWrapping="Wrap" Width="247" Height="25"/>
                         <TextBox Margin="0 10 0 0" x:Name="payUpdBox" Text="Update Phone" TextWrapping="Wrap" Width="247" Height="25"/>
                     </StackPanel>
-                </Border>
+                </Grid>
             </StackPanel>
             <Grid x:Name="wrkTable" Margin="375,-25,0,10">
                 <DataGrid x:Name="dataTable" Margin="10,50,10,172">
-                    <Border>
-                        <Border.BorderBrush>
-                            <SolidColorBrush>#283D3B</SolidColorBrush>
-                        </Border.BorderBrush>
+                    <Border Style="{StaticResource GridBorder}">
                     </Border>
                     <DataGrid.Columns>
 
@@ -213,5 +218,42 @@
                 </DataGrid>
             </Grid>
         </Grid>
+
+
+        <Grid x:Name="suppGrid" Visibility="Visible" Margin="242,101,0,0">
+            <StackPanel Style="{StaticResource LeftStack}" Margin="10,0,857,48" Height="718" VerticalAlignment="Bottom">
+                <StackPanel Orientation="Horizontal" Height="83">
+                    <TextBox x:Name="suppSearch" Text="{StaticResource search}" TextWrapping="Wrap" Width="153" Height="23"/>
+                    <Button Margin="10 0 0 0"  x:Name="button2" Content="Button" Height="23" Width="40"/>
+                </StackPanel>
+                <StackPanel Height="545" Width="328">
+                    <Grid Height="240" Width="272">
+                        <Border Style="{StaticResource ResourceKey=GridBorder}"/>
+                        <Label Content="{StaticResource addSupp}" Margin="10,0,10,222"/>
+                        <TextBox Margin="10,23,10,195" Text="{StaticResource suppName}" />
+                        <TextBox Margin="10,63,10,150" Text="{StaticResource suppPhone}" />
+                        <TextBox Margin="10,103,10,110" Text="{StaticResource suppAddr}" />
+                        <Button Template="{StaticResource ButtonTemplate}" x:Name="addSuppBtn" Content="Button" HorizontalAlignment="Center" Margin="0,175,0,0" VerticalAlignment="Top" Height="45"/>
+                    </Grid>
+                    <Grid Height="160">
+                        <Border Style="{StaticResource ResourceKey=GridBorder}" Margin="28,10,25,10"/>
+                        <Label Content="{StaticResource delSupp}" Margin="0,15,0,130"></Label>
+                        <TextBox Text="{StaticResource suppName}" Margin="38,45,38,90"></TextBox>
+                        <Button Content="{StaticResource delete}" Template="{StaticResource ButtonTemplate}" Margin="52,95,52,30"></Button>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Margin="383,10,0,0">
+                <DataGrid x:Name="suppTable">
+                    <Border Style="{StaticResource GridBorder}">
+                    </Border>
+                    <DataGrid.Columns>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
+
     </Grid>
 </Window>
