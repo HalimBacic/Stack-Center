@@ -42,4 +42,13 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="suppPhone">Supplier phone</system:String>
     <system:String x:Key="suppAddr">Supplier adress</system:String>
     <system:String x:Key="delSupp">Delete supplier</system:String>
+    <system:String x:Key="addCustomer">Add customer</system:String>
+    <system:String x:Key="dellCustomer">Delete customer</system:String>
+    <system:String x:Key="nameCustomer">Customer name</system:String>
+    <system:String x:Key="surnameCustomer">Customer surname</system:String>
+    <system:String x:Key="phoneCustomer">Customer phone</system:String>
+    <system:String x:Key="jmbgCustomer">Customer uid</system:String>
+    <system:String x:Key="adrCustomer">Customer address</system:String>
+    <system:String x:Key="find">Search stocks</system:String>
+    <system:String x:Key="idgoods">Goods id</system:String>
 </ResourceDictionary> 

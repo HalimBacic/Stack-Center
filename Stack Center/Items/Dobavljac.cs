@@ -5,7 +5,6 @@
         private string ime;
         private string telefon;
         private string adresa;
-        private int id;
 
         public Dobavljac(string ime, string telefon, string adresa)
         {
@@ -17,6 +16,5 @@
         public string Ime { get => ime; set => ime = value; }
         public string Telefon { get => telefon; set => telefon = value; }
         public string Adresa { get => adresa; set => adresa = value; }
-        public int Id { get => id; set => id = value; }
     }
 }

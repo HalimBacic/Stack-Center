@@ -22,6 +22,11 @@ namespace Stack_Center
         protected bool isDragging;
         private Point clickPosition;
         private TranslateTransform originTT;
+        DobavljacDao dobavljacDao = new DobavljacDao();
+        StockDAO stocks = new StockDAO();
+        RobaDAO robaDAO = new RobaDAO();
+        RadnikDAO radnikDAO = new RadnikDAO();
+        KupacDAO kupacDAO = new KupacDAO();
 
         internal Stock SelectedStock { get => selectedStock; set => selectedStock = value; }
 
@@ -29,30 +34,48 @@ namespace Stack_Center
         {
             InitializeComponent();
             dataTable.Items.Clear();
+            suppData.Items.Clear();
+            customersGrid.Items.Clear();
+            resultGrid.Items.Clear();
             InitializeSuppliers();
             InitializeStocks();
         }
 
         private void InitializeSuppliers()
         {
-            DobavljacDao supplierDao = new DobavljacDao();
-            List<Dobavljac> lista = supplierDao.getAll();
-
+            List<Dobavljac> lista = dobavljacDao.getAll();
+            suppData.ItemsSource = lista.ToArray();
             suppBox.ItemsSource = lista.ToArray();
         }
 
         private void InitializeStocks()
         {
-            StockDAO stocks = new StockDAO();
+
             List<Stock> lista = stocks.getAll();
 
             stockBox.ItemsSource = lista.ToArray();
+        }
+
+        private void InitializeWorkers()
+        {
+            List<Radnik> lista = radnikDAO.getAll();
+
+            dataTable.ItemsSource = lista.ToArray();
+        }
+
+        private void InitializeCustomers()
+        {
+            List<Kupac> lista = kupacDAO.getAll();
+
+            customersGrid.ItemsSource = lista.ToArray();
         }
 
         private void MakeAllInvisible()
         {
             stockGrid.Visibility = Visibility.Collapsed;
             workersGrid.Visibility = Visibility.Collapsed;
+            suppGrid.Visibility = Visibility.Collapsed;
+            custGrid.Visibility = Visibility.Collapsed;
         }
 
         public void ChangeSelected(object sender, SelectionChangedEventArgs e)
@@ -143,7 +166,9 @@ namespace Stack_Center
             elipse.MouseLeftButtonUp += Canvas_MouseLeftButtonUp;
             elipse.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;
             elipse.MouseMove += Canvas_MouseMove;
-            stateCanvas.Children.Add(elipse);
+            Stockgfx gfx = new Stockgfx(elipse,visinaP,duzinaP,sirinaP,Double.Parse(weightText.GetLineText(0)),int.Parse(quanText.GetLineText(0)));
+                                        
+            stateCanvas.Children.Add(gfx);
         }
 
         private void cubicPack_MouseUp(object sender, MouseButtonEventArgs e)
@@ -161,13 +186,11 @@ namespace Stack_Center
             //Odnos grafike i stvarne dimenzije skladišta
             double razmX = stateCanvas.Height / (visinaS * 100);
             double razmY = stateCanvas.Width / (duzinaS * 100);
-            Trace.WriteLine(razmX + " " + razmY);
 
             Rectangle rect = new Rectangle();
             //Dimenzije grafike u odnosu na skladiste
             rect.Height = (sirinaP * razmX) * 100;
             rect.Width = (duzinaP * razmY) * 100;
-            Trace.WriteLine(rect.Height + " " + rect.Width);
             rect.Fill = Brushes.DarkRed;
             rect.Opacity = visinaP / visinaS;
             rect.Stroke = Brushes.Black;
@@ -193,16 +216,14 @@ namespace Stack_Center
             string suppName = ((Dobavljac)suppBox.SelectedItem).Ime;
 
             Roba roba = new Roba(name, quan, price, selectedStock.Adress, suppName);
-            RobaDAO robaDAO = new RobaDAO();
             robaDAO.addElement(roba);
         }
 
-        private void delBtn_Click(object sender, RoutedEventArgs e)
+   /*     private void delBtn_Click(object sender, RoutedEventArgs e)
         {
             string ime = deleteBox.GetLineText(0);
-            RobaDAO robaDao = new RobaDAO();
-            robaDao.removeElement(ime);
-        }
+            robaDAO.removeElement(ime);
+        } */
 
         private void stcBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -217,22 +238,47 @@ namespace Stack_Center
             InitializeWorkers();
         }
 
-        private void InitializeWorkers()
-        {
-            RadnikDAO radnikDAO = new RadnikDAO();
-            List<Radnik> lista = radnikDAO.getAll();
-
-            dataTable.ItemsSource = lista.ToArray();
-        }
-
         private void addWorker_Click(object sender, RoutedEventArgs e)
         {
             Double plata = Double.Parse(payBox.GetLineText(0));
             Radnik radnik = new Radnik(loginBox.GetLineText(0), nameBox.GetLineText(0), surnameBox.GetLineText(0), 
                                     uidBox.GetLineText(0),plata, selectedStock.Adress, phoneBox.GetLineText(0));
 
-            RadnikDAO radnikDAO = new RadnikDAO();
             radnikDAO.addElement(radnik);
+        }
+
+        private void splrBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MakeAllInvisible();
+            suppGrid.Visibility = Visibility.Visible;
+            InitializeSuppliers();
+        }
+
+        private void addSuppBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Dobavljac dobavljac = new Dobavljac(suppName.GetLineText(0),suppPhone.GetLineText(0),suppAdr.GetLineText(0));
+
+            dobavljacDao.addElement(dobavljac);
+
+        }
+
+        private void dltSuppBtn_Click(object sender, RoutedEventArgs e)
+        {
+            dobavljacDao.removeElement(suppNameDel.GetLineText(0));
+        }
+
+        private void byeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MakeAllInvisible();
+            custGrid.Visibility = Visibility.Visible;
+            InitializeCustomers();
+        }
+
+        private void addCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            //  public Kupac(string ime, string prezime, string jmbg, string adresa, string telefon)
+            Kupac kupac = new Kupac(nameCust.GetLineText(0),surnameCust.GetLineText(0),jmbgCust.GetLineText(0),addrCust.GetLineText(0),phoneCust.GetLineText(0));
+            kupacDAO.addElement(kupac);
         }
     }
 }

@@ -41,4 +41,13 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="suppPhone">Telefon dobavljača</system:String>
     <system:String x:Key="suppAddr">Adresa dobavljača</system:String>
     <system:String x:Key="delSupp">Obriši dobavljača</system:String>
+    <system:String x:Key="addCustomer">Dodaj kupca</system:String>
+    <system:String x:Key="dellCustomer">Obriši kupca</system:String>
+    <system:String x:Key="nameCustomer">Ime kupca</system:String>
+    <system:String x:Key="surnameCustomer">Prezime kupca</system:String>
+    <system:String x:Key="phoneCustomer">Telefon kupca</system:String>
+    <system:String x:Key="jmbgCustomer">JMBG kupca</system:String>
+    <system:String x:Key="adrCustomer">Adresa kupca</system:String>
+    <system:String x:Key="find">Pretraži skladišta</system:String>
+    <system:String x:Key="idgoods">ID robe</system:String>
 </ResourceDictionary> 
