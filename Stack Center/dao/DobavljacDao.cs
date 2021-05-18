@@ -71,7 +71,13 @@ namespace Stack_Center.dao
 
         public void removeElement(string ime)
         {
-            throw new System.NotImplementedException();
+            Items.Connection.Connect();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "obrisiDobavljaca";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("ime",MySqlDbType.String).Value = ime;
+            Items.Connection.CallProcedure(cmd);
+            Items.Connection.Disconnect();
         }
 
         public void updateElement(Dobavljac obj, int id)

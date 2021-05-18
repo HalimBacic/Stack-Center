@@ -7,7 +7,6 @@
         private string jmbg;
         private string adresa;
         private string telefon;
-        private int roba_id;
 
         public Kupac(string ime, string prezime, string jmbg, string adresa, string telefon)
         {
@@ -23,6 +22,5 @@
         public string Jmbg { get => jmbg; set => jmbg = value; }
         public string Adresa { get => adresa; set => adresa = value; }
         public string Telefon { get => telefon; set => telefon = value; }
-        public int Roba_id { get => roba_id; set => roba_id = value; }
     }
 }

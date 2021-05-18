@@ -22,8 +22,8 @@
             <Setter Property="Margin" Value="0,-21,0,10"></Setter>
         </Style>
 
-        
-        
+
+
         <Style x:Key="LeftStack" TargetType="StackPanel">
             <Setter Property="Background">
                 <Setter.Value>
@@ -101,29 +101,52 @@
         </StackPanel>
 
         <Grid Margin="270,19,35,763">
-            <ComboBox SelectionChanged="ChangeSelected"  x:Name="stockBox"
-                  HorizontalAlignment="Right" Margin="0,21,852,0" Width="260"
-                  ItemsSource="{Binding }" Height="40" VerticalAlignment="Top">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Adress}"></TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <Label x:Name="label" Content="{StaticResource selectStock}" HorizontalAlignment="Left" Margin="72,0,0,74" VerticalAlignment="Bottom" Width="176" />
+            <!--          
+                                
             <Button x:Name="addStockBtn" Content="Add" HorizontalAlignment="Left" Margin="311,25,0,0" VerticalAlignment="Top" />
-            <Button x:Name="delStockBtn" Content="Rem" HorizontalAlignment="Left" Margin="345,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.131,0.786" />
+            <Button x:Name="delStockBtn" Content="Rem" HorizontalAlignment="Left" Margin="345,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.131,0.786" /> -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,697,0">
+                <StackPanel Width="295" Orientation="Vertical" Height="85">
+                    <Label x:Name="label" Content="{StaticResource selectStock}" HorizontalAlignment="Left"  Width="176" Height="20" />
+                    <ComboBox SelectionChanged="ChangeSelected"  x:Name="stockBox"
+                  Width="260"
+                  ItemsSource="{Binding ''}" Height="30">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Adress}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                </StackPanel>
+                <StackPanel Width="140" Orientation="Vertical">
+                    <Button Height="35" x:Name="addStock" />
+                    <GridSplitter Height="15" Background="Transparent" />
+                    <Button Height="35"  x:Name="removeStock" />
+                </StackPanel>
+
+            </StackPanel>
+            <StackPanel Visibility="Collapsed" Orientation="Horizontal" x:Name="status" Margin="425,0,42,0">
+                <StackPanel Orientation="Vertical" Width="340">
+                    <Label x:Name="labelAll" Content="{StaticResource allStock}"/>
+                    <TextBox Margin="20" x:Name="allBox"  TextWrapping="Wrap" Width="190" Height="34"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Width="340">
+                    <Label x:Name="labelFree" Content="{StaticResource freeStock}"/>
+                    <TextBox Margin="20" x:Name="freeBox" TextWrapping="Wrap" Width="190" Height="34"/>
+                </StackPanel>
+            </StackPanel>
         </Grid>
 
         <Grid Margin="270,95,10,10"  x:Name="stockGrid" Visibility="Visible">
             <StackPanel Style="{StaticResource LeftStack}" Margin="10,0,0,10" HorizontalAlignment="Left" Width="353" Height="720">
                 <Label Visibility="Visible" Margin="{StaticResource tbMargin}" x:Name="slctdLabel" Content="{StaticResource choose}" />
-                <StackPanel Visibility="Visible" x:Name="activePanel" Margin="10 10 10 10" Height="363">
+                <StackPanel Visibility="Collapsed" x:Name="activePanel" Margin="10 10 10 10" Height="363">
                     <Grid Height="63">
                         <TextBox x:Name="searchBox" HorizontalAlignment="Left" Margin="11,0,0,0" Text="{StaticResource search}" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Height="23" />
-                        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="240,0,0,0" VerticalAlignment="Top" />
+                        <Button Click="searchStockBtn_Click" x:Name="searchStockBtn" Content="Button" HorizontalAlignment="Left" Margin="240,0,0,0" VerticalAlignment="Top" />
                     </Grid>
                     <Grid Height="305" Width="310">
                         <Border Style="{StaticResource GridBorder}" />
@@ -155,7 +178,7 @@
                         <Grid Height="125" Width="305" Margin="2,336,2,-156" />
                     </Grid>
                 </StackPanel>
-                <StackPanel Visibility="Collapsed" Height="295" Width="325">
+                <StackPanel x:Name="searchStack" Visibility="Collapsed" Height="295" Width="325">
                     <DataGrid x:Name="findData">
                     </DataGrid>
                 </StackPanel>
@@ -177,25 +200,22 @@
 
         <Grid Visibility="Collapsed" x:Name="workersGrid" Margin="270,95,10,10" HorizontalAlignment="Left" Width="1160">
             <StackPanel  Style="{StaticResource LeftStack}" Height="720" Width="353" Margin="30,26,777,26">
-                <Border Margin="20" Style="{StaticResource GridBorder}" Height="395" Width="306">
+                <Border Margin="20" Style="{StaticResource GridBorder}" Height="338" Width="306">
                     <StackPanel Margin="8,26,-2,-2">
-                        <StackPanel Height="100" Orientation="Horizontal" Width="271">
-                            <TextBox x:Name="textBox" Text="{StaticResource search}" TextWrapping="Wrap" Width="192" Height="34" />
-                            <Button Margin="10 0 0 0" x:Name="button1" Content="Button" Height="34" Width="45" />
-                        </StackPanel>
+                        <Label Content="{StaticResource addWorker}"></Label>
                         <TextBox Margin="-20 10 0 0" Text="{StaticResource nameWorker}" x:Name="nameBox" TextWrapping="Wrap" Width="120" />
                         <TextBox Margin="-20 10 0 0" Text="{StaticResource surname}" x:Name="surnameBox" TextWrapping="Wrap" Width="120" />
                         <TextBox Margin="-20 10 0 0" Text="{StaticResource uid}" x:Name="uidBox" TextWrapping="Wrap" Width="120" />
                         <TextBox Margin="-20 10 0 0" Text="{StaticResource payment}" x:Name="payBox" TextWrapping="Wrap" Width="120" />
                         <TextBox Margin="-20 10 0 0" Text="{StaticResource phone}" x:Name="phoneBox" TextWrapping="Wrap" Width="120" />
-                        <TextBox Margin="-20 10 0 0" Text="{StaticResource usr}" x:Name="loginBox" TextWrapping="Wrap" Width="120" />
+                        <ComboBox Margin="-20 10 0 0" x:Name="pickType" Width="146" />
                         <Button Margin="-20 20 0 0" Click="addWorker_Click" x:Name="addWorker" Content="{StaticResource addWorker}" Template="{StaticResource ButtonTemplate}" Height="44" Width="172" />
                     </StackPanel>
                 </Border>
                 <Border Margin="20" Style="{StaticResource GridBorder}" Height="208" Width="306">
                     <Grid Height="215">
                         <StackPanel Orientation="Horizontal" Width="280" Margin="30,10,10,152">
-                            <TextBox Height="34" Width="182" />
+                            <TextBox Text="{StaticResource uid}" Height="34" Width="182" />
                             <Button Margin="20 0 0 0" Content="Delete" Height="33" Width="46" />
                         </StackPanel>
                         <StackPanel Margin="0,63,0,72">
@@ -252,15 +272,16 @@
         <Grid Visibility="Collapsed" x:Name="custGrid" Margin="242,119,35,0">
             <StackPanel Orientation="Vertical" Width="353" Style="{StaticResource LeftStack}" Margin="10,19,800,318">
                 <Grid Height="346">
-                    <Border Style="{StaticResource GridBorder}" Margin="18,16,18,59" />
+                    <Border Style="{StaticResource GridBorder}" Margin="18,16,18,30" />
                     <Label Content="{StaticResource addCustomer}" Margin="26,16,26,309" />
-                    <TextBox x:Name="nameCust" Text="{StaticResource nameCustomer}" Margin="22,37,42,285" />
-                    <TextBox x:Name="surnameCust" Text="{StaticResource surnameCustomer}" Margin="22,73,42,249" />
-                    <TextBox x:Name="jmbgCust" Text="{StaticResource jmbgCustomer}" Margin="22,107,42,215" />
-                    <TextBox x:Name="addrCust" Text="{StaticResource adrCustomer}" Margin="22,142,42,180" />
-                    <TextBox x:Name="phoneCust" Text="{StaticResource phoneCustomer}" Margin="22,177,42,145" />
-                    <TextBox x:Name="idGoods" Text="{StaticResource idgoods}" Margin="22,212,222,110" />
-                    <Button x:Name="addCustomer" Content="{StaticResource addCustomer}" Template="{StaticResource ButtonTemplate}" Margin="143,212,42,95" Click="addCustomer_Click" />
+                    <TextBox x:Name="nameCust" Text="{StaticResource nameCustomer}" Margin="60,37,42,285" />
+                    <TextBox x:Name="surnameCust" Text="{StaticResource surnameCustomer}" Margin="60,73,42,249" />
+                    <TextBox x:Name="jmbgCust" Text="{StaticResource jmbgCustomer}" Margin="60,107,42,215" />
+                    <TextBox x:Name="addrCust" Text="{StaticResource adrCustomer}" Margin="60,142,42,180" />
+                    <TextBox x:Name="phoneCust" Text="{StaticResource phoneCustomer}" Margin="60,177,42,145" />
+                    <TextBox x:Name="idGoods" Text="{StaticResource idgoods}" Margin="60,216,189,106" />
+                    <Button x:Name="addCustomer" Content="{StaticResource addCustomer}" Template="{StaticResource ButtonTemplate}" Margin="92,257,93,50" Click="addCustomer_Click" />
+                    <TextBox x:Name="idGoodsQuan" Text="{StaticResource quantity}" Margin="207,216,42,106" />
                 </Grid>
             </StackPanel>
 
@@ -272,12 +293,17 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
-            <StackPanel Margin="0,445,0,0" Orientation="Vertical">
+            <StackPanel Margin="0,485,0,0" Orientation="Vertical">
                 <StackPanel Height="50" Orientation="Horizontal">
                     <TextBox Margin="50 0 0 0" x:Name="searchBox2" Text="{StaticResource find}" TextWrapping="Wrap" Width="508" Height="30" />
-                    <Button Margin="50 0 0 0" x:Name="findBtn" Content="Button" />
+                    <Button Margin="50 0 0 0" x:Name="findBtn" Content="Button" Height="30" Width="45" Click="findBtn_Click" />
                 </StackPanel>
-                <DataGrid x:Name="resultGrid" Height="20" Width="1067" Margin="10,50,10,172" />
+                <DataGrid x:Name="resultData" Height="175" Width="1066">
+                    <Border Style="{StaticResource GridBorder}">
+                    </Border>
+                    <DataGrid.Columns>
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
         </Grid>
     </Grid>

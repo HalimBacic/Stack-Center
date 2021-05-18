@@ -52,8 +52,8 @@ namespace Stack_Center.dao
             MySqlDataReader data = Items.Connection.ReadData("select * from `kupac`;");
             while (data.Read())
             {
-                Kupac dob = new Kupac(data.GetString("ime"), data.GetString("prezime"), data.GetString("jmbg"), data.GetString("adresa"), data.GetString("telefon"));
-                list.Add(dob);
+                Kupac kupac = new Kupac(data.GetString("ime"), data.GetString("prezime"), data.GetString("jmbg"), data.GetString("adresa"), data.GetString("telefon"));
+                list.Add(kupac);
             }
             Items.Connection.Disconnect();
             return list;

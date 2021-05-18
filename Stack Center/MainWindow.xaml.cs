@@ -55,7 +55,7 @@ namespace Stack_Center
             MySqlDataReader data = Items.Connection.CallProcedureReader(cmd);
             while (data.Read())
                 tip = data.GetString(0);
-            if (tip.Contains("A"))
+            if (tip.Equals("Administrator"))
             {
                 stockAdmin = new StockAdmin();
                 stockAdmin.Show();

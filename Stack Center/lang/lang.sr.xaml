@@ -50,4 +50,6 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="adrCustomer">Adresa kupca</system:String>
     <system:String x:Key="find">Pretraži skladišta</system:String>
     <system:String x:Key="idgoods">ID robe</system:String>
+    <system:String x:Key="allStock">Ukupno</system:String>
+    <system:String x:Key="freeStock">Slobodno</system:String>
 </ResourceDictionary> 

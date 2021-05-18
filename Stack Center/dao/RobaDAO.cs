@@ -35,8 +35,26 @@ namespace Stack_Center.dao
             cmd.Parameters["skladiste_adresa"].Direction = ParameterDirection.Input;
             cmd.Parameters.Add("dobavljac_ime", MySqlDbType.String).Value = roba.Dobavljac_id;
             cmd.Parameters["dobavljac_ime"].Direction = ParameterDirection.Input;
+            cmd.Parameters.Add("v", MySqlDbType.Double).Value = roba.Visina;
+            cmd.Parameters["v"].Direction = ParameterDirection.Input;
+            cmd.Parameters.Add("s", MySqlDbType.String).Value = roba.Sirina;
+            cmd.Parameters["s"].Direction = ParameterDirection.Input;
+            cmd.Parameters.Add("d", MySqlDbType.String).Value = roba.Duzina;
+            cmd.Parameters["d"].Direction = ParameterDirection.Input;
             Items.Connection.CallProcedure(cmd);
             Items.Connection.Disconnect();
+        }
+
+        public MySqlDataReader GetSearchStock(string stockAdr,string name)
+        {
+            Items.Connection.Connect();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "pretraziSkladiste";
+            cmd.Parameters.Add("skl", MySqlDbType.String).Value = stockAdr;
+            cmd.Parameters.Add("roba", MySqlDbType.String).Value = name;
+            MySqlDataReader reader = Items.Connection.CallProcedureReader(cmd);
+            return reader;
         }
 
         public List<Roba> getAll()
@@ -46,7 +64,8 @@ namespace Stack_Center.dao
             MySqlDataReader data = Items.Connection.ReadData("select * from `roba`;");
             while (data.Read())
             {
-                lista.Add(new Roba(data.GetString(0), data.GetInt32(1), data.GetInt32(2), data.GetString(3), data.GetString(4)));
+                lista.Add(new Roba(data.GetInt32(0), data.GetString(1), Double.Parse(data.GetString(2)), Double.Parse(data.GetString(3)), data.GetString(4), 
+                    data.GetString(5), data.GetDouble(6), data.GetDouble(7), data.GetDouble(8)));
             }
             Items.Connection.Disconnect();
             return lista;
