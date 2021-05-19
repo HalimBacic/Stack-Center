@@ -94,11 +94,17 @@ namespace Stack_Center
             Double free = 0.0;
 
             List<Roba> allRoba = robaDAO.getAll();
+            List<Roba> stockRoba = new List<Roba>();
             foreach (Roba roba in allRoba)
             {
                 if (roba.Skladiste_id.Equals(SelectedStock.Adress))
+                {
                     free += roba.Duzina * roba.Sirina * roba.Visina;
+                    stockRoba.Add(roba);
+                }
             }
+
+            stockTable.ItemsSource = stockRoba.ToArray();
             allBox.Text = all.ToString();
             freeBox.Text = (all-free).ToString();
             CountDimension();
@@ -389,6 +395,32 @@ namespace Stack_Center
 
             resultData.ItemsSource = dataRoba.ToArray();
             Items.Connection.Disconnect();
+        }
+
+        private void toggleBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (containerCanvas.Visibility == Visibility.Visible)
+            {
+                containerCanvas.Visibility = Visibility.Collapsed;
+                containerTable.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                containerCanvas.Visibility = Visibility.Visible;
+                containerTable.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void dayBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var app = App.Current as App;
+            app.ChangeTheme(new Uri(@"/Themes/DayTheme.xaml", UriKind.Relative));
+        }
+
+        private void nightBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var app = App.Current as App;
+            app.ChangeTheme(new Uri(@"/Themes/NightTheme.xaml", UriKind.Relative));
         }
     }
 }

@@ -53,4 +53,8 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="idgoods">Goods id</system:String>
     <system:String x:Key="allStock">Total</system:String>
     <system:String x:Key="freeStock">Free</system:String>
+    <system:String x:Key="userType">User type</system:String>
+    <system:String x:Key="searchWorker">Search workers</system:String>
+    <system:String x:Key="updatePhone">Update phone</system:String>
+    <system:String x:Key="updateSalary">Update salary</system:String>
 </ResourceDictionary> 

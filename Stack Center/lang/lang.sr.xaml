@@ -52,4 +52,8 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="idgoods">ID robe</system:String>
     <system:String x:Key="allStock">Ukupno</system:String>
     <system:String x:Key="freeStock">Slobodno</system:String>
+    <system:String x:Key="userType">Tip korisnika</system:String>
+    <system:String x:Key="searchWorker">Pretraži radnike</system:String>
+    <system:String x:Key="updatePhone">Uredi telefon</system:String>
+    <system:String x:Key="updateSalary">Uredi platu</system:String>
 </ResourceDictionary> 

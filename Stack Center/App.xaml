@@ -7,6 +7,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./lang/lang.en-US.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="./lang/lang.sr.xaml"></ResourceDictionary>
+                <ResourceDictionary x:Name="DayTheme" Source="./Themes/DayTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary  x:Name="NightTheme" Source="./Themes/NightTheme.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
