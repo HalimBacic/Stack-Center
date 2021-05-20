@@ -3,8 +3,10 @@ using Stack_Center.Items;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,6 +58,21 @@ namespace Stack_Center.dao
             throw new NotImplementedException();
         }
 
+        public Radnik getElement(string jmbg)
+        {
+            Radnik radnik = new Radnik();
+            Items.Connection.Connect();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "pronadjiRadnika";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("jmbg", MySqlDbType.String).Value = jmbg;
+            MySqlDataReader data = Items.Connection.CallProcedureReader(cmd);
+            while (data.Read())
+                radnik = new Radnik(data.GetString(5), data.GetString(0), data.GetString(1), data.GetString(2),
+                        data.GetDouble(3), data.GetString(6), data.GetString(4));
+            return radnik;
+        }
+
         public void removeElement(int id)
         {
             throw new NotImplementedException();
@@ -81,6 +98,25 @@ namespace Stack_Center.dao
                 collection.Add(r);
 
             return collection;
+        }
+
+        public void AddLogin(string un,string pass,string t)
+        {
+            SHA512 shaM = new SHA512Managed();
+            byte[] result = shaM.ComputeHash(Encoding.UTF8.GetBytes(pass));
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < result.Length; i++)
+                sb.Append(result[i].ToString("x2"));
+
+            Items.Connection.Connect();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "dodajLogin";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("login", MySqlDbType.String).Value = un;
+            cmd.Parameters.Add("pass", MySqlDbType.String).Value = sb.ToString();
+            cmd.Parameters.Add("tip", MySqlDbType.String).Value = t;
+            Items.Connection.CallProcedure(cmd);
+            Items.Connection.Disconnect();
         }
     }
 }

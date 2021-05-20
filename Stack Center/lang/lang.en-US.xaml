@@ -57,4 +57,13 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="searchWorker">Search workers</system:String>
     <system:String x:Key="updatePhone">Update phone</system:String>
     <system:String x:Key="updateSalary">Update salary</system:String>
+    <system:String x:Key="addStock">Add stock</system:String>
+    <system:String x:Key="vStock">Height</system:String>
+    <system:String x:Key="sStock">Width</system:String>
+    <system:String x:Key="dStock">Length</system:String>
+    <system:String x:Key="infoStock">Stock info</system:String>
+    <system:String x:Key="adrStock">Adress</system:String>
+    <system:String x:Key="newPass">New password</system:String>
+    <system:String x:Key="newLogin">New username</system:String>
+    <system:String x:Key="change">Update profil</system:String>
 </ResourceDictionary> 

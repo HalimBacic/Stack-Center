@@ -5,11 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -21,16 +23,20 @@ namespace Stack_Center
     public partial class StockAdmin : Window
     {
         private Stock selectedStock;
+        private string username;
+        private string lozinka;
         protected bool isDragging;
         private Point clickPosition;
         private TranslateTransform originTT;
         DobavljacDao dobavljacDao = new DobavljacDao();
-        StockDAO stocks = new StockDAO();
+        StockDAO stockDAO = new StockDAO();
         RobaDAO robaDAO = new RobaDAO();
         RadnikDAO radnikDAO = new RadnikDAO();
         KupacDAO kupacDAO = new KupacDAO();
 
         internal Stock SelectedStock { get => selectedStock; set => selectedStock = value; }
+        public string Username { get => username; set => username = value; }
+        public string Lozinka { get => lozinka; set => lozinka = value; }
 
         public StockAdmin()
         {
@@ -55,7 +61,7 @@ namespace Stack_Center
         private void InitializeStocks()
         {
 
-            List<Stock> lista = stocks.getAll();
+            List<Stock> lista = stockDAO.getAll();
 
             stockBox.ItemsSource = lista.ToArray();
         }
@@ -84,30 +90,52 @@ namespace Stack_Center
 
         public void ChangeSelected(object sender, SelectionChangedEventArgs e)
         {
-            slctdLabel.Visibility = Visibility.Collapsed;
-            activePanel.Visibility = Visibility.Visible;
-            status.Visibility = Visibility.Visible;
-
+            stateCanvas.Children.Clear();
             SelectedStock = (Stock)stockBox.SelectedItem;
-
-            Double all = SelectedStock.Duzina * SelectedStock.Sirina * SelectedStock.Visina;
-            Double free = 0.0;
-
-            List<Roba> allRoba = robaDAO.getAll();
-            List<Roba> stockRoba = new List<Roba>();
-            foreach (Roba roba in allRoba)
+            
+            if (selectedStock != null)
             {
-                if (roba.Skladiste_id.Equals(SelectedStock.Adress))
+                addStockPanel.Visibility = Visibility.Collapsed;
+                slctdLabel.Visibility = Visibility.Collapsed;
+                activePanel.Visibility = Visibility.Visible;
+                status.Visibility = Visibility.Visible;
+
+                Double all = SelectedStock.Duzina * SelectedStock.Sirina * SelectedStock.Visina;
+                Double free = 0.0;
+
+                List<Roba> allRoba = robaDAO.getAll();
+                List<Roba> stockRoba = new List<Roba>();
+                foreach (Roba roba in allRoba)
                 {
-                    free += roba.Duzina * roba.Sirina * roba.Visina;
-                    stockRoba.Add(roba);
+                    if (roba.Skladiste_id.Equals(SelectedStock.Adress))
+                    {
+                        free += roba.Duzina * roba.Sirina * roba.Visina;
+                        stockRoba.Add(roba);
+                    }
+                }
+
+                stockTable.ItemsSource = stockRoba.ToArray();
+                allBox.Text = all.ToString();
+                freeBox.Text = (all - free).ToString();
+                vBox.Text = selectedStock.Visina.ToString();
+                sBox.Text = selectedStock.Sirina.ToString();
+                dBox.Text = selectedStock.Duzina.ToString();
+                CountDimension();
+
+                if (File.Exists("Stocks/" + selectedStock.Adress + ".scf"))
+                {
+                    string name = "Stocks/" + selectedStock.Adress + ".scf";
+                    FileStream fs = File.Open(name, FileMode.Open, FileAccess.Read);
+                    Canvas savedCanvas = XamlReader.Load(fs) as Canvas;
+                    fs.Close();
+                    this.stateCanvas.Children.Add(savedCanvas);
                 }
             }
-
-            stockTable.ItemsSource = stockRoba.ToArray();
-            allBox.Text = all.ToString();
-            freeBox.Text = (all-free).ToString();
-            CountDimension();
+            else
+            {
+                allBox.Text = "";
+                freeBox.Text = "";
+            }
         }
 
         private void CountDimension()
@@ -246,12 +274,6 @@ namespace Stack_Center
             robaDAO.addElement(roba);
         }
 
-   /*     private void delBtn_Click(object sender, RoutedEventArgs e)
-        {
-            string ime = deleteBox.GetLineText(0);
-            robaDAO.removeElement(ime);
-        } */
-
         private void stcBtn_Click(object sender, RoutedEventArgs e)
         {
             MakeAllInvisible();
@@ -279,21 +301,23 @@ namespace Stack_Center
 
             string tip = pickType.SelectedItem.ToString();
 
-            SHA512 shaM = new SHA512Managed();
-            byte[] result = shaM.ComputeHash(Encoding.UTF8.GetBytes(pass));
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < result.Length; i++)
-                sb.Append(result[i].ToString("x2"));
+            /*        SHA512 shaM = new SHA512Managed();
+                    byte[] result = shaM.ComputeHash(Encoding.UTF8.GetBytes(pass));
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < result.Length; i++)
+                        sb.Append(result[i].ToString("x2"));
 
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "dodajLogin";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("login", MySqlDbType.String).Value = username;
-            cmd.Parameters.Add("pass", MySqlDbType.String).Value = sb.ToString();
-            cmd.Parameters.Add("tip", MySqlDbType.String).Value = tip;
-            Items.Connection.Connect();
-            Items.Connection.CallProcedure(cmd);
-            Items.Connection.Disconnect();
+                    MySqlCommand cmd = new MySqlCommand();
+                    cmd.CommandText = "dodajLogin";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("login", MySqlDbType.String).Value = username;
+                    cmd.Parameters.Add("pass", MySqlDbType.String).Value = sb.ToString();
+                    cmd.Parameters.Add("tip", MySqlDbType.String).Value = tip;
+                    Items.Connection.Connect();
+                    Items.Connection.CallProcedure(cmd);
+                    Items.Connection.Disconnect(); */
+
+            radnikDAO.AddLogin(username,pass,tip);
         }
 
         private void splrBtn_Click(object sender, RoutedEventArgs e)
@@ -421,6 +445,70 @@ namespace Stack_Center
         {
             var app = App.Current as App;
             app.ChangeTheme(new Uri(@"/Themes/NightTheme.xaml", UriKind.Relative));
+        }
+
+        private void addStock_Click(object sender, RoutedEventArgs e)
+        {
+            slctdLabel.Visibility = Visibility.Collapsed;
+            activePanel.Visibility = Visibility.Collapsed;
+            addStockPanel.Visibility = Visibility.Visible;
+            stockBox.SelectedIndex = -1;
+        }
+
+        private void addStockBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int v = Int32.Parse(vStock.GetLineText(0));
+            int s = Int32.Parse(sStock.GetLineText(0));
+            int d = Int32.Parse(dStock.GetLineText(0));
+
+            Stock stock = new Stock(adrStock.GetLineText(0),v,s,d,iStock.Text);
+            stockDAO.addElement(stock);
+            InitializeStocks();
+        }
+
+        private void removeStock_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedStock != null)
+            {
+                stockDAO.removeElement(selectedStock.Adress);
+                stockBox.SelectedIndex = -1;
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("Select stock", "Problem", MessageBoxButton.OK);
+            }
+        }
+
+        private void profilBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (changeProfil.Visibility == Visibility.Visible)
+                changeProfil.Visibility = Visibility.Collapsed;
+            else
+                changeProfil.Visibility = Visibility.Visible;
+        }
+
+        private void changeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            radnikDAO.AddLogin(userBox.GetLineText(0),passBox.GetLineText(0),"Administrator");
+            MessageBoxResult result = MessageBox.Show("Information updated", "Updated", MessageBoxButton.OK);
+        }
+
+        private void stateCanvas_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (selectedStock != null)
+            {
+                string name = "Stocks/" + selectedStock.Adress + ".scf";
+                FileStream fs = File.Open(name, FileMode.Create);
+                XamlWriter.Save(stateCanvas, fs);
+                fs.Close();
+            }
+        }
+
+        private void searchWrk_Click(object sender, RoutedEventArgs e)
+        {
+            Radnik radnik = radnikDAO.getElement(wrkName.GetLineText(0));
+            phhUpdBox.Text = radnik.Telefon;
+            payUpdBox.Text = radnik.Plata.ToString();
         }
     }
 }

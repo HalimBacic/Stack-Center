@@ -20,7 +20,17 @@ namespace Stack_Center.dao
 
         public void addElement(Stock obj)
         {
-            throw new NotImplementedException();
+            Items.Connection.Connect();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "dodajSkladiste";
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add("adr", MySqlDbType.String).Value = obj.Adress;
+            cmd.Parameters.Add("vis", MySqlDbType.Int32).Value = obj.Visina;
+            cmd.Parameters.Add("sir", MySqlDbType.Int32).Value = obj.Sirina;
+            cmd.Parameters.Add("duz", MySqlDbType.Int32).Value = obj.Duzina;
+            cmd.Parameters.Add("info", MySqlDbType.String).Value = obj.Info;
+            Items.Connection.CallProcedure(cmd);
+            Items.Connection.Disconnect();
         }
 
         public List<Stock> getAll()
@@ -46,9 +56,15 @@ namespace Stack_Center.dao
             throw new NotImplementedException();
         }
 
-        public void removeElement(string ime)
+        public void removeElement(string adr)
         {
-            throw new NotImplementedException();
+            Items.Connection.Connect();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "obrisiSkladiste";
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add("adr", MySqlDbType.String).Value = adr;
+            Items.Connection.CallProcedure(cmd);
+            Items.Connection.Disconnect();
         }
 
         public void updateElement(Stock obj, int id)

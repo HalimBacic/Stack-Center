@@ -133,12 +133,12 @@
                 <GradientStop Color="#C44536" Offset="0.7"></GradientStop>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="btnLogin" Style="{StaticResource someBtn}" Content="{DynamicResource login}" HorizontalAlignment="Left" Margin="248,166,0,0" VerticalAlignment="Top" Height="30" Width="100" Click="btnLogin_Click" />
-        <Button x:Name="btnPass" Style="{StaticResource PassBtn}" Content="{DynamicResource forgetPass}" HorizontalAlignment="Left" Margin="79,168,0,0" VerticalAlignment="Top" Height="26" Width="156" />
-        <Button x:Name="button" Style="{StaticResource someBtn}" Content="{DynamicResource about}" HorizontalAlignment="Left" Margin="248,128,0,0" VerticalAlignment="Top" Width="100" Height="26" />
+        <Button x:Name="btnLogin" Style="{DynamicResource someBtn}" Content="{DynamicResource login}" HorizontalAlignment="Left" Margin="248,166,0,0" VerticalAlignment="Top" Height="30" Width="100" Click="btnLogin_Click" />
+        <Button x:Name="btnPass" Style="{DynamicResource PassBtn}" Content="{DynamicResource forgetPass}" HorizontalAlignment="Left" Margin="79,168,0,0" VerticalAlignment="Top" Height="26" Width="156" />
+        <Button x:Name="button" Style="{DynamicResource someBtn}" Content="{DynamicResource about}" HorizontalAlignment="Left" Margin="248,128,0,0" VerticalAlignment="Top" Width="100" Height="26" />
         <TextBox x:Name="loginBox" HorizontalAlignment="Center" Margin="0,39,0,0" Text="{DynamicResource usr}" TextWrapping="Wrap" VerticalAlignment="Top" Width="316" Height="30" />
         <TextBox x:Name="passBox" HorizontalAlignment="Center" Margin="0,84,0,0" Text="{DynamicResource pass}" TextWrapping="Wrap" VerticalAlignment="Top" Width="316" Height="30" />
-        <Button x:Name="engBtn" Style="{StaticResource PassBtn}" Content="ENG" HorizontalAlignment="Left" Margin="32,10,0,0" VerticalAlignment="Top" Click="engBtn_Click"/>
-        <Button x:Name="srBtn" Style="{StaticResource PassBtn}"  Content="SR" HorizontalAlignment="Left" Margin="70,10,0,0" VerticalAlignment="Top" Width="31" Click="srBtn_Click"/>
+        <Button x:Name="engBtn" Style="{DynamicResource PassBtn}" Content="ENG" HorizontalAlignment="Left" Margin="32,10,0,0" VerticalAlignment="Top" Click="engBtn_Click"/>
+        <Button x:Name="srBtn" Style="{DynamicResource PassBtn}"  Content="SR" HorizontalAlignment="Left" Margin="70,10,0,0" VerticalAlignment="Top" Width="31" Click="srBtn_Click"/>
     </Grid>
 </Window>

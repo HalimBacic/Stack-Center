@@ -10,6 +10,12 @@
         private string skladiste_adresa;
         private string telefon;
 
+        public Radnik()
+        {
+            telefon = "Unknown";
+            plata = 0;
+        }
+
         public Radnik(string login, string ime, string prezime, string jmbg, double plata, string skladiste_adresa, string telefon)
         {
             this.Login = login;

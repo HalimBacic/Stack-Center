@@ -56,4 +56,13 @@ xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="searchWorker">Pretraži radnike</system:String>
     <system:String x:Key="updatePhone">Uredi telefon</system:String>
     <system:String x:Key="updateSalary">Uredi platu</system:String>
+    <system:String x:Key="addStock">Dodaj skladište</system:String>
+    <system:String x:Key="adrStock">Adresa</system:String>
+    <system:String x:Key="vStock">Visina</system:String>
+    <system:String x:Key="sStock">Dužina</system:String>
+    <system:String x:Key="dStock">Širina</system:String>
+    <system:String x:Key="infoStock">Informacije</system:String>
+    <system:String x:Key="newPass">Nova lozinka</system:String>
+    <system:String x:Key="newLogin">Novo korisničko ime</system:String>
+    <system:String x:Key="change">Promjeni prijavu</system:String>
 </ResourceDictionary> 
