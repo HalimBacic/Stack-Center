@@ -1,11 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Data;
-using System.Diagnostics;
-using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
 using System.Windows;
 
 namespace Stack_Center
@@ -45,7 +42,6 @@ namespace Stack_Center
         public void Success(string login)
         {
             Items.Connection.Connect();
-            StockAdmin stockAdmin;
             string tip = "Unknown";
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -57,17 +53,26 @@ namespace Stack_Center
                 tip = data.GetString(0);
             if (tip.Equals("Administrator"))
             {
+                StockAdmin stockAdmin;
                 stockAdmin = new StockAdmin();
+                stockAdmin.NameUser = login;
                 stockAdmin.Show();
+                this.Close();
             }
-            else
-                Trace.WriteLine("Open employee window");
+            else if (tip.Equals("Manager"))
+            {
+                StockManager stockManager;
+                stockManager = new StockManager();
+                stockManager.NameUser = login;
+                stockManager.Show();
+                this.Close();
+            }
+                
             Items.Connection.Disconnect();
         }
 
         public void Failure()
         {
-            //TODO Stilizovati
             MessageBoxResult result = MessageBox.Show("Warning", "Wrong username or password.");
         }
 
@@ -79,6 +84,16 @@ namespace Stack_Center
         private void srBtn_Click(object sender, RoutedEventArgs e)
         {
             App.Instance.LanguageChange("sr");
+        }
+
+        private void loginBox_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            loginBox.Text = "";
+        }
+
+        private void passBox_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            passBox.Text = "";
         }
     }
 }
