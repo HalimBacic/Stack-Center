@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 
@@ -6,7 +7,7 @@ namespace Stack_Center.Items
 {
     public class Connection
     {
-        private static string CONNECTION = "server = 127.0.0.1; database=stock; user=root; password=root;";
+        private static string CONNECTION = ConfigurationManager.ConnectionStrings["connection"].ToString();
         private static MySqlConnection conn;
 
         public Connection()
