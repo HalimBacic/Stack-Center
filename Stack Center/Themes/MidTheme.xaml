@@ -2,12 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- Background -->
-    <Color x:Key="primeColorDark">#0A100D</Color>
-    <Color x:Key="primeColorLight">#737458</Color>
-    
+    <Color x:Key="primeColorDark">#565656</Color>
+    <Color x:Key="primeColorLight">#B2FFA9</Color>
+
     <!-- Parts -->
-    <Color x:Key="secondColorDark">#A22C29</Color>
+    <Color x:Key="secondColorDark">#C29684</Color>
 
     <!-- Text -->
-    <Color x:Key="secondColorLight">#D6D5C9</Color>
+    <Color x:Key="secondColorLight">#FF4A1C</Color>
 </ResourceDictionary>

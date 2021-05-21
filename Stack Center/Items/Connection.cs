@@ -6,7 +6,7 @@ namespace Stack_Center.Items
 {
     public class Connection
     {
-        private static string connectionString = "server = 127.0.0.1; database=stock; user=root; password=root;";
+        private static string CONNECTION = "server = 127.0.0.1; database=stock; user=root; password=root;";
         private static MySqlConnection conn;
 
         public Connection()
@@ -16,7 +16,7 @@ namespace Stack_Center.Items
 
         public static void Connect()
         {
-            conn = new MySqlConnection(connectionString);
+            conn = new MySqlConnection(CONNECTION);
             conn.Open();
         }
     

@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Stocks\**" />
+    <EmbeddedResource Remove="Stocks\**" />
+    <None Remove="Stocks\**" />
+    <Page Remove="Stocks\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Remove="lang\lang.en-US.xaml" />
     <Page Remove="lang\lang.sr.xaml" />
   </ItemGroup>
@@ -21,11 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Stocks\" />
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="lang\lang.en-US.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -33,6 +35,21 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

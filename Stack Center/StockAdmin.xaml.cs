@@ -33,12 +33,10 @@ namespace Stack_Center
         RobaDAO robaDAO = new RobaDAO();
         RadnikDAO radnikDAO = new RadnikDAO();
         KupacDAO kupacDAO = new KupacDAO();
-        private string name;
 
         internal Stock SelectedStock { get => selectedStock; set => selectedStock = value; }
         public string Username { get => username; set => username = value; }
         public string Lozinka { get => lozinka; set => lozinka = value; }
-        public string NameUser { get => name; set => name = value; }
 
         public StockAdmin()
         {
@@ -90,8 +88,28 @@ namespace Stack_Center
             custGrid.Visibility = Visibility.Collapsed;
         }
 
+        public void SetUserTheme(string themeName)
+        {
+            Uri uri = new Uri(@"/Themes/"+themeName+".xaml",UriKind.Relative);
+            var app = App.Current as App;
+            app.ChangeTheme(uri);
+        }
+
+        private void SetNewUserTheme(string v)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "SetThemeName";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("lgn", MySqlDbType.String).Value = username;
+            cmd.Parameters.Add("thm", MySqlDbType.String).Value = v;
+            Items.Connection.Connect();
+            Items.Connection.CallProcedure(cmd);
+            Items.Connection.Disconnect();
+        }
+
         public void ChangeSelected(object sender, SelectionChangedEventArgs e)
         {
+            Canvas savedCanvas;
             stateCanvas.Children.Clear();
             SelectedStock = (Stock)stockBox.SelectedItem;
             
@@ -128,7 +146,7 @@ namespace Stack_Center
                 {
                     string name = "Stocks/" + selectedStock.Adress + ".scf";
                     FileStream fs = File.Open(name, FileMode.Open, FileAccess.Read);
-                    Canvas savedCanvas = XamlReader.Load(fs) as Canvas;
+                    savedCanvas = XamlReader.Load(fs) as Canvas;
                     fs.Close();
                     this.stateCanvas.Children.Add(savedCanvas);
                 }
@@ -256,8 +274,6 @@ namespace Stack_Center
 
         private void lgtBtn_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mw = new MainWindow();
-            mw.Show();
             Close();
         }
 
@@ -441,12 +457,21 @@ namespace Stack_Center
         {
             var app = App.Current as App;
             app.ChangeTheme(new Uri(@"/Themes/DayTheme.xaml", UriKind.Relative));
+            SetNewUserTheme("DayTheme");
+        }
+
+        private void midBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var app = App.Current as App;
+            app.ChangeTheme(new Uri(@"/Themes/MidTheme.xaml", UriKind.Relative));
+            SetNewUserTheme("MidTheme");
         }
 
         private void nightBtn_Click(object sender, RoutedEventArgs e)
         {
             var app = App.Current as App;
             app.ChangeTheme(new Uri(@"/Themes/NightTheme.xaml", UriKind.Relative));
+            SetNewUserTheme("NightTheme");
         }
 
         private void addStock_Click(object sender, RoutedEventArgs e)
@@ -486,12 +511,34 @@ namespace Stack_Center
             if (changeProfil.Visibility == Visibility.Visible)
                 changeProfil.Visibility = Visibility.Collapsed;
             else
+            {
                 changeProfil.Visibility = Visibility.Visible;
+                userBox.Text = username;
+                passBox.Text = lozinka;
+            }
         }
 
         private void changeBtn_Click(object sender, RoutedEventArgs e)
         {
-            radnikDAO.AddLogin(userBox.GetLineText(0),passBox.GetLineText(0),"Administrator");
+            MySqlCommand cmd = new MySqlCommand();
+            byte[] data = new byte[512];
+            data = Encoding.UTF8.GetBytes(lozinka);
+            byte[] resultHash;
+            SHA512 shaM = new SHA512Managed();
+            resultHash = shaM.ComputeHash(data);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < resultHash.Length; i++)
+                sb.Append(resultHash[i].ToString("x2"));
+
+            cmd.CommandText = "removeLogin";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("pass", MySqlDbType.String).Value = sb.ToString();
+            Items.Connection.Connect();
+            Items.Connection.CallProcedure(cmd);
+            Items.Connection.Disconnect();
+
+            radnikDAO.AddLogin(userBox.GetLineText(0), passBox.GetLineText(0), "Administrator");
+
             MessageBoxResult result = MessageBox.Show("Information updated", "Updated", MessageBoxButton.OK);
         }
 
@@ -511,6 +558,42 @@ namespace Stack_Center
             Radnik radnik = radnikDAO.getElement(wrkName.GetLineText(0));
             phhUpdBox.Text = radnik.Telefon;
             payUpdBox.Text = radnik.Plata.ToString();
+        }
+
+        private void userBox_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            string usrnm = userBox.GetLineText(0);
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "checkUsername";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("usrnm", MySqlDbType.String).Value = usrnm;
+            Items.Connection.Connect();
+            MySqlDataReader data = Items.Connection.CallProcedureReader(cmd);
+            if (data.Read())
+            {
+                changeBtn.IsEnabled = false;
+                userBox.Background = Brushes.IndianRed;
+            }
+            else
+                changeBtn.IsEnabled = true;
+        }
+
+        private void passBox_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            string pass = passBox.GetLineText(0);
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "checkSifra";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("sifra", MySqlDbType.String).Value = pass;
+            Items.Connection.Connect();
+            MySqlDataReader data = Items.Connection.CallProcedureReader(cmd);
+            if (data.Read())
+            {
+                changeBtn.IsEnabled = false;
+                passBox.Background = Brushes.IndianRed;
+            }
+            else
+                changeBtn.IsEnabled = true;
         }
     }
 }

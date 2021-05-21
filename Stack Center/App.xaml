@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="./lang/lang.sr.xaml"></ResourceDictionary>
                 <ResourceDictionary x:Name="DayTheme" Source="./Themes/DayTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary  x:Name="NightTheme" Source="./Themes/NightTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary  x:Name="NightTheme" Source="./Themes/MidTheme.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

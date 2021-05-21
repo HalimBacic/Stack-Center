@@ -32,14 +32,14 @@ namespace Stack_Center
                 sb.Append(result[i].ToString("x2"));
             if (Items.Connection.CallLogin(login, sb.ToString()))
             {
-                Success(login);
+                Success(login,pass);
             }
             else
                 Failure();
         }
 
 
-        public void Success(string login)
+        public void Success(string login,string pass)
         {
             Items.Connection.Connect();
             string tip = "Unknown";
@@ -53,22 +53,45 @@ namespace Stack_Center
                 tip = data.GetString(0);
             if (tip.Equals("Administrator"))
             {
+                string themeName = GetTheme(login);
                 StockAdmin stockAdmin;
                 stockAdmin = new StockAdmin();
-                stockAdmin.NameUser = login;
+                stockAdmin.Username = login;
+                stockAdmin.Lozinka = pass;
+                stockAdmin.SetUserTheme(themeName);
                 stockAdmin.Show();
                 this.Close();
             }
             else if (tip.Equals("Manager"))
             {
+
+                string themeName = GetTheme(login);
                 StockManager stockManager;
                 stockManager = new StockManager();
-                stockManager.NameUser = login;
+                stockManager.Username = login;
+                stockManager.Lozinka = pass;
+                stockManager.SetUserTheme(themeName);
                 stockManager.Show();
                 this.Close();
             }
                 
             Items.Connection.Disconnect();
+        }
+
+        private string GetTheme(string login)
+        {
+            //TODO Srediti da baza automatski postavi MidTheme
+            string theme = "MidTheme";
+            Items.Connection.Connect();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "GetThemeName";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("lgn", MySqlDbType.String).Value = login;
+            MySqlDataReader data = Items.Connection.CallProcedureReader(cmd);
+            while (data.Read())
+                theme = data.GetString(0);
+
+            return theme;
         }
 
         public void Failure()
